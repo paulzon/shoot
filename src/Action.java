@@ -153,7 +153,7 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
       timer.stop();
       String tq = df.format( hits / shoots * 100 ).replaceAll( "\\?", "0.0" );
       String name = JOptionPane.showInputDialog( this,
-          "Kontostand: " + balance + " Tefferquote: " + tq + "% Name?" );
+          "balance: " + balance + " hit rate: " + tq + "% name?" );
       if ( writeScore )
         writeScore = writeScore( name, balance, tq );
     }
