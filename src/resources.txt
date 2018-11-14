@@ -1,0 +1,15 @@
+# pictures
+aim.png, see https://pixabay.com/en/sniper-aim-crosshair-cross-hairs-297661/
+bomb.png, see https://pixabay.com/en/bomb-cartoon-iconic-2025548/
+bg.png, fm.png, see https://pixabay.com/en/window-program-app-application-23235/
+coin.png, see https://pixabay.com/en/phoenix-bird-legend-coin-fire-1292958/
+shell.png, see https://pixabay.com/en/bullet-shell-cartridge-slug-36942/
+rf.png, see https://pixabay.com/en/invoice-bill-envelope-money-153413/
+mail.png, see https://pixabay.com/en/email-fast-service-internet-1975010/
+bullet.png, see https://pixabay.com/en/bullet-holes-target-shooting-gunshot-36943/
+
+# sounds
+boom.wav, see http://soundbible.com/1234-Bomb.html
+dry.wav, see http://soundbible.com/1405-Dry-Fire-Gun.html
+reload.wav, see http://soundbible.com/1400-Shotgun.html
+shoot.wav, see http://soundbible.com/1706-Shot-Gun.html

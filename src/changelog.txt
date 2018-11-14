@@ -1,0 +1,28 @@
+1.1
+- coins now have a value of 50 instead of 10, number of coins 3 instead of 5
+- reload the weapon
+- loading screen (game does not start immediately)
+- high score (network drive)
+1.1.1
+- bugfix when reading the high score after the game
+1.2
+- added bomb
+1.2.1
+- re-converted sounds (same frame rate)
+1.3
+- sound in extra thread
+- balance starts at 0 instead of 1000
+- Exception handling sounds, if this is not supported
+- targets now fall on the y-axis between 20 and the width-20 instead of between 10 and the full width
+- tolerance set from 15 to 20
+- Hit rate is calculated and displayed in high score
+- mail as a disruptive object
+1.3.1
+- coins fall down at x = -2000 and thus come less often
+- hit rate in end dialog box
+- high score sorting involves hit rate
+1.3.2
+- added resource package
+- high score sorting corrected
+2.0.0
+- add free resources (pictures and sounds) and push on github
