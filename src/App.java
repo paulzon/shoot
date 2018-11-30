@@ -11,6 +11,10 @@ public class App extends JFrame {
 
   private static final long serialVersionUID = 1L;
 
+  protected static final int D_W = 1325;
+
+  protected static final int D_H = 715;
+
   public static void main( String[] args ) {
     App app = new App();
     app.setVisible( true );
@@ -31,7 +35,7 @@ public class App extends JFrame {
     this.getContentPane().setCursor( blankCursor );
 
     this.setIconImage( ( new ImageIcon( getClass().getResource( "resource/bullet.png" ) ).getImage() ) );
-    this.setSize( Action.D_W, Action.D_H );
+    this.setSize( D_W, D_H );
     this.setResizable( false );
     this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 

@@ -7,9 +7,12 @@ shell.png, see https://pixabay.com/en/bullet-shell-cartridge-slug-36942/
 rf.png, see https://pixabay.com/en/invoice-bill-envelope-money-153413/
 mail.png, see https://pixabay.com/en/email-fast-service-internet-1975010/
 bullet.png, see https://pixabay.com/en/bullet-holes-target-shooting-gunshot-36943/
+question.png, see https://pixabay.com/de/frage-marke-kreis-runde-hilfe-27106/
 
 # sounds
 boom.wav, see http://soundbible.com/1234-Bomb.html
 dry.wav, see http://soundbible.com/1405-Dry-Fire-Gun.html
 reload.wav, see http://soundbible.com/1400-Shotgun.html
 shoot.wav, see http://soundbible.com/1706-Shot-Gun.html
+error.wav, see http://soundbible.com/121-Computer-Error.html
+win.wav, see http://soundbible.com/1003-Ta-Da.html

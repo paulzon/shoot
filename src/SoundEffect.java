@@ -14,7 +14,7 @@ import javax.sound.sampled.Clip;
  */
 public enum SoundEffect {
   SHOOT( "resource/shoot.wav" ), DRY( "resource/dry.wav" ), RELOAD( "resource/reload.wav" ), BOOM(
-      "resource/boom.wav" );
+      "resource/boom.wav" ), ERROR( "resource/error.wav" ), WIN( "resource/win.wav" );
 
   // Nested class for specifying volume
   public static enum Volume {

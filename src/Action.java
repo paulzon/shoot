@@ -31,12 +31,6 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
 
   private boolean running = false;
 
-  protected static final int D_W = 1325;
-
-  protected static final int D_H = 715;
-
-  private static final int INCREMENT = 5;
-
   private Image background = ( new ImageIcon( getClass().getResource( "resource/fm.png" ) ) ).getImage();
 
   private Image background2 = ( new ImageIcon( getClass().getResource( "resource/bg.png" ) ) ).getImage();
@@ -57,15 +51,17 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
 
   private List<Coin> coins;
 
+  private Question question;
+
   private Bomb bomb;
 
   private Mail mail;
 
+  private int balance;
+
   private static final int DEMANDS = 15;
 
   private static final int COINS = 3;
-
-  private int balance;
 
   private Timer timer;
 
@@ -123,6 +119,8 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
     for ( Coin coin : coins ) {
       coin.draw( g );
     }
+    if ( question != null )
+      question.draw( g );
     if ( bomb != null )
       bomb.draw( g );
     if ( mail != null )
@@ -202,109 +200,9 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension( D_W, D_H );
+    return new Dimension( App.D_W, App.D_H );
   }
 
-  public class Demand {
-    int x, y;
-
-    public Demand( int x, int y ) {
-      this.x = x;
-      this.y = y;
-    }
-
-    public void draw( Graphics g ) {
-      g.drawImage( getImage(), x, y, null );
-    }
-
-    public Image getImage() {
-      return ( new ImageIcon( getClass().getResource( "resource/rf.png" ) ) ).getImage();
-    }
-
-    public void move() {
-      if ( y >= D_H ) {
-        y = getRandomInt( -100, 0 );
-        x = getRandomInt( 20, D_W - 20 );
-        balance += getBalance();
-      }
-      else {
-        y += INCREMENT;
-        x += getRandomInt( 0 - INCREMENT * 2, INCREMENT * 2 );
-      }
-    }
-
-    public int getBalance() {
-      return -10;
-    }
-
-  }
-
-  public class Coin extends Demand {
-
-    public Coin( int x, int y ) {
-      super( x, y );
-    }
-
-    @Override
-    public Image getImage() {
-      return ( new ImageIcon( getClass().getResource( "resource/coin.png" ) ) ).getImage();
-    }
-
-    @Override
-    public void move() {
-      if ( y >= D_H ) {
-        y = getRandomInt( -2000, 0 );
-        x = getRandomInt( 20, D_W - 20 );
-      }
-      else {
-        y += INCREMENT;
-        x += getRandomInt( 0 - INCREMENT * 2, INCREMENT * 2 );
-      }
-    }
-
-  }
-
-  public class Bomb extends Coin {
-    public Bomb( int x, int y ) {
-      super( x, y );
-    }
-
-    @Override
-    public Image getImage() {
-      return ( new ImageIcon( getClass().getResource( "resource/bomb.png" ) ) ).getImage();
-    }
-
-    @Override
-    public void move() {
-      if ( y >= D_H ) {
-        bomb = null;
-      }
-      else {
-        y += INCREMENT * 2;
-      }
-    }
-  }
-
-  public class Mail extends Coin {
-
-    public Mail( int x, int y ) {
-      super( x, y );
-    }
-
-    @Override
-    public Image getImage() {
-      return ( new ImageIcon( getClass().getResource( "resource/mail.png" ) ) ).getImage();
-    }
-
-    @Override
-    public void move() {
-    }
-
-  }
-
-  @Override
-  public void mouseDragged( MouseEvent e ) {
-  }
 
   @Override
   public void mouseMoved( MouseEvent e ) {
@@ -320,36 +218,41 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
       demands = new ArrayList<>();
       coins = new ArrayList<>();
       for ( int i = 0; i < DEMANDS; i++ )
-        demands.add( new Demand( getRandomInt( 20, D_W - 20 ), getRandomInt( -100, 0 ) ) );
+        demands.add( new Demand() );
       for ( int i = 0; i < COINS; i++ )
-        coins.add( new Coin( getRandomInt( 20, D_W - 20 ), getRandomInt( -2000, 0 ) ) );
+        coins.add( new Coin() );
+      question = new Question();
       balance = 0;
       shellCount = 5;
       shoots = 0;
       hits = 0;
       time = 60000;
-      int bombTime = getRandomInt( 10000, 60000 );
-      int mailTime = getRandomInt( 10000, 60000 );
+      int bombTime = Demand.getRandomInt( 10000, 60000 );
+      int mailTime = Demand.getRandomInt( 10000, 60000 );
       timer = new Timer( 50, new ActionListener() {
         @Override
         public void actionPerformed( ActionEvent ae ) {
+          question.move();
           for ( Demand demand : demands ) {
-            demand.move();
+            balance += demand.move();
             repaint();
           }
           for ( Coin coin : coins ) {
-            coin.move();
+            balance += coin.move();
             repaint();
           }
+          question.move();
+          repaint();
           if ( time >= bombTime && bombTime >= time - 50 ) {
-            bomb = new Bomb( getRandomInt( 20, D_W - 20 ), getRandomInt( -100, 0 ) );
+            bomb = new Bomb();
           }
           if ( bomb != null ) {
-            bomb.move();
+            if ( bomb.move() == -1 )
+              bomb = null;
             repaint();
           }
           if ( time >= mailTime && mailTime >= time - 50 ) {
-            mail = new Mail( D_W / 2, D_H / 2 );
+            mail = new Mail();
           }
           else if ( time >= mailTime - 5000 && mailTime - 5000 >= time - 50 ) {
             mail = null;
@@ -381,8 +284,7 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
           if ( demand.x - tolerance <= x && x <= demand.x + tolerance &&
               demand.y - tolerance <= y && y <= demand.y + tolerance ) {
             bullet.paintIcon( getComponentPopupMenu(), getGraphics(), x, y );
-            demand.y = getRandomInt( -100, 0 );
-            demand.x = getRandomInt( 20, D_W - 20 );
+            demand.start();
             match = true;
           }
         }
@@ -390,9 +292,29 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
           if ( coin.x - tolerance <= x && x <= coin.x + tolerance &&
               coin.y - tolerance <= y && y <= coin.y + tolerance ) {
             bullet.paintIcon( getComponentPopupMenu(), getGraphics(), x, y );
-            coin.y = getRandomInt( -2000, 0 );
-            coin.x = getRandomInt( 20, D_W - 20 );
+            coin.start();
             balance += 50;
+            match = true;
+          }
+        }
+        if ( question != null ) {
+          if ( question.x - tolerance <= x && x <= question.x + tolerance &&
+              question.y - tolerance <= y && y <= question.y + tolerance ) {
+
+            question.start();
+            int i = Demand.getRandomInt( 0, 100 );
+            // TODO: Random-Ereignis
+            if ( i < 50 ) {
+              Thread t2 = new Thread( new SoundBox( SoundEffect.WIN ) );
+              t2.start();
+              time = time + 5000;
+            }
+            else if ( i >= 50 ) {
+              Thread t2 = new Thread( new SoundBox( SoundEffect.ERROR ) );
+              t2.start();
+              time = time - 5000;
+            }
+
             match = true;
           }
         }
@@ -400,13 +322,12 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
           if ( bomb.x - tolerance <= x && x <= bomb.x + tolerance &&
               bomb.y - tolerance <= y && y <= bomb.y + tolerance ) {
             for ( Demand demand : demands ) {
-              demand.y = getRandomInt( -100, 0 );
-              demand.x = getRandomInt( 20, D_W - 20 );
+              demand.start();
             }
             for ( Coin coin : coins ) {
-              coin.y = getRandomInt( -2000, 0 );
-              coin.x = getRandomInt( 20, D_W - 20 );
+              coin.start();
             }
+            question.start();
             Thread t2 = new Thread( new SoundBox( SoundEffect.BOOM ) );
             t2.start();
             bomb = null;
@@ -446,9 +367,8 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
   public void mouseExited( MouseEvent e ) {
   }
 
-  private int getRandomInt( int low, int high ) {
-    Random r = new Random();
-    return r.nextInt( high - low ) + low;
+  @Override
+  public void mouseDragged( MouseEvent e ) {
   }
 
 }
