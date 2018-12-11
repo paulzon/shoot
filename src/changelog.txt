@@ -26,3 +26,5 @@
 - high score sorting corrected
 2.0.0
 - add free resources (pictures and sounds) and push on github
+2.1.0
+- add random question coin +/- 5 sec

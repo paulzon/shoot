@@ -17,7 +17,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
@@ -202,7 +201,6 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
   public Dimension getPreferredSize() {
     return new Dimension( App.D_W, App.D_H );
   }
-
 
   @Override
   public void mouseMoved( MouseEvent e ) {
