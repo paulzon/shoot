@@ -9,8 +9,24 @@ public class Demand {
 
   protected static final int INCREMENT = 5;
 
+  private int acceleration = 0;
+
   public Demand() {
+    normal();
     this.start();
+
+  }
+
+  public void faster() {
+    acceleration = 3;
+  }
+  
+  public void slower() {
+    acceleration = -3;
+  }
+  
+  public void normal() {
+    acceleration = 0;
   }
 
   public int getStartpunkt() {
@@ -30,7 +46,7 @@ public class Demand {
       start();
       return getBalance();
     }
-    y += INCREMENT;
+    y += INCREMENT + acceleration;
     if ( x < 0 )
       x += getRandomInt( 0, INCREMENT * 2 );
     else if ( x > App.D_W - 48 )
@@ -41,6 +57,7 @@ public class Demand {
   }
 
   public void start() {
+    normal();
     y = getRandomInt( getStartpunkt(), 0 );
     x = getRandomInt( schwankung, App.D_W - schwankung );
   }
