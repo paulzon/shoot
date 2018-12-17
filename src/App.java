@@ -21,7 +21,7 @@ public class App extends JFrame {
   }
 
   public App() {
-    super( "Shoot 2.1.0" );
+    super( "Shoot 2.1.1" );
     try {
       UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
     }

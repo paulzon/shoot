@@ -28,3 +28,6 @@
 - add free resources (pictures and sounds) and push on github
 2.1.0
 - add random question coin +/- 5 sec
+2.1.1
+- question good event: +5 sec AND Demands ar slower for a round
+- question bad event: -5 sec AND Demands are faster for a round
