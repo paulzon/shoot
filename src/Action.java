@@ -306,17 +306,11 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
               Thread t2 = new Thread( new SoundBox( SoundEffect.WIN ) );
               t2.start();
               time = time + 5000;
-              for ( Demand d : demands ) {
-                d.slower();
-              }
             }
             else if ( i >= 50 ) {
               Thread t2 = new Thread( new SoundBox( SoundEffect.ERROR ) );
               t2.start();
               time = time - 5000;
-              for ( Demand d : demands ) {
-                d.faster();
-              }
             }
 
             match = true;
