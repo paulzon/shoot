@@ -67,8 +67,7 @@ public class Action extends JPanel implements MouseListener, MouseMotionListener
   private int time;
 
   // TODO: set high score file, for examle a network path
-  // private File highScore = new File( "hs.dat" );
-  private File highScore = new File( "m:\\USER.ALL\\Zahlung_PG\\hs.dat" );
+  private File highScore = new File( "hs.dat" );
 
   private List<String> scores;
 
